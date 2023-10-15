@@ -7,6 +7,15 @@ public class ResourceLoader {
     Class<?> targetclass;
     ResourceType[] avaliableresourcetypes;
 
+    /**
+     * folder name and extension of resource types:
+     * RESOURCETYPE_SOUND:Sound .mp3
+     * RESOURCETYPE_VIDEO:Video .mp4
+     * RESOURCETYPE_SOUND:Image .png
+     * RESOURCETYPE_SOUND:XML .xml
+     * RESOURCETYPE_SOUND:Other (no extension, add extension by your self pls)
+     * 
+     */
     public static class ResourceType {
         private String resourcefoldername, extensionname;
         public static final ResourceType RESOURCETYPE_SOUND = new ResourceType("Sound", "mp3"),
