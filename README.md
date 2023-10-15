@@ -15,8 +15,13 @@ add that to your pom.xml `dependencies` of your `maven` project:
     <groupId>com.alibaba.fastjson2</groupId>
     <artifactId>fastjson2</artifactId>
     <version>2.0.41</version>
+    <scope>system</scope>
+    <systemPath>this package file location<systemPath>
 </dependency>
 ```
+I m sorry for I am not upload it to maven central repository
+
+I will slove it after ^v^
 
 if you have any question,`issue` please!
 
