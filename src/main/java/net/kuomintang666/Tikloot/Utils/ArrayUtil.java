@@ -9,7 +9,7 @@ public class ArrayUtil {
     public static <T> T getlast(T[] input) {
         return input[input.length - 1];
     }
-
+    
     public static <E> Object[] removelast(E[] input) {
         Object[] result = new Object[input.length - 1];
         for (int i = 0; i < result.length - 2; i++) {

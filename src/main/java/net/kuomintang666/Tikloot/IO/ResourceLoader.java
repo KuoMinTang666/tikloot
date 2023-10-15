@@ -43,6 +43,13 @@ public class ResourceLoader {
         }
     }
 
+    /**
+     * load resource by the target class
+     * 
+     * @param type resource type (resource location)
+     * @param name resource name
+     * @return
+     */
     public URL loadResource(ResourceType type, String name) {
         return targetclass.getResource(type.getFolderName() + '/' + name + '.' + type.getExtensionName());
     }
