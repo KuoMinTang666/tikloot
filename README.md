@@ -23,10 +23,12 @@ I m sorry for I am not upload it to maven central repository
 
 I will slove it after ^v^
 
+this project is developing, so it may have some bugs
+
 if you have any question,`issue` please!
 
 ## how to use?
 
 view `doc` pls->[tikloot document](https://kuomintang666.github.io/documents/tikloot/index.html)
 
-cause by something, I'm sorry for `I can't create englist doc`, so `translate` it by yourself or `browser plugin` pls^v^
+cause by something, I'm sorry for `I can't create english doc`, so `translate` it by yourself or `browser plugin` pls^v^
