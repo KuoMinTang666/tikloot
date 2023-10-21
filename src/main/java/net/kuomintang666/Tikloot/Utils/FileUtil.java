@@ -34,8 +34,10 @@ public class FileUtil {
         Scanner scanner = new Scanner(new FileInputStream(file), charset);
         StringBuilder builder = new StringBuilder();
         while (scanner.hasNextLine()) {
-            builder.append(scanner.nextLine() + '\n');
+            builder.append(scanner.nextLine() + "\n");
+
         }
+        builder.deleteCharAt(builder.length() - 1);
         scanner.close();
         return builder.toString();
     }

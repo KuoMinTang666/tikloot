@@ -2,10 +2,13 @@ package net.kuomintang666.Tikloot.IO;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ResourceLoader {
     Class<?> targetclass;
-    ResourceType[] avaliableresourcetypes;
+    List<ResourceType> avaliableresourcetypes;
 
     /**
      * folder name and extension of resource types:
@@ -45,7 +48,7 @@ public class ResourceLoader {
      */
     public ResourceLoader(Class<?> trg, ResourceType... resourcetypes) throws IOException {
         targetclass = trg;
-        avaliableresourcetypes = resourcetypes;
+        avaliableresourcetypes = Arrays.asList(resourcetypes);
         for (ResourceType i : resourcetypes) {
             if (trg.getResource(i.getFolderName()) == null)
                 throw new IOException("Resource not found " + i.getFolderName());
@@ -60,7 +63,12 @@ public class ResourceLoader {
      * @return
      */
     public URL loadResource(ResourceType type, String name) {
-        return targetclass.getResource(type.getFolderName() + '/' + name + '.' + type.getExtensionName());
+        if (type.getExtensionName().isEmpty() & avaliableresourcetypes.contains(type)) {
+            return targetclass.getResource(type.getFolderName() + '/' + name);
+        } else {
+            return targetclass.getResource(type.getFolderName() + '/' + name + "." + type.extensionname);
+        }
+
     }
 
     public Class<?> getTargetclass() {

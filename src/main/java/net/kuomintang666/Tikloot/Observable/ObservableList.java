@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import net.kuomintang666.Tikloot.Observable.Listener.Event;
+import net.kuomintang666.Tikloot.Utils.ArrayUtil;
 
 public class ObservableList<Type> extends ObservableValue<List<Type>> {
     List<Type> list = new ArrayList<>();
@@ -16,7 +17,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      * @param index   element index
      */
     public void add(Type element, int index) {
-        List<Type> old = list;
+        List<Type> old = ArrayUtil.cloneList(list);
         list.add(index, element);
         Changed(Event.ArrayEvent.EVENT_ADD, old, list);
     }
@@ -27,7 +28,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      * @param index   element index
      */
     public void set(Type element, int index) {
-        List<Type> old = list;
+        List<Type> old = ArrayUtil.cloneList(list);
         list.set(index, element);
         Changed(Event.ArrayEvent.EVENT_SET, old, list);
     }
@@ -39,7 +40,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      */
 
     public void remove(Type element) {
-        List<Type> old = list;
+        List<Type> old = ArrayUtil.cloneList(list);
         list.remove(element);
         Changed(Event.ArrayEvent.EVENT_SET, old, list);
     }
@@ -50,7 +51,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      */
 
     public void remove(int index) {
-        List<Type> old = list;
+        List<Type> old = ArrayUtil.cloneList(list);
         list.remove(index);
         Changed(Event.ArrayEvent.EVENT_SET, old, list);
     }
