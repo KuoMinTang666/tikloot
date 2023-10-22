@@ -9,6 +9,7 @@ import java.util.List;
 public class ResourceLoader {
     Class<?> targetclass;
     List<ResourceType> avaliableresourcetypes;
+    String resourcesubfolder;
 
     /**
      * folder name and extension of resource types:
@@ -45,9 +46,17 @@ public class ResourceLoader {
      * 
      * @param trg           the target class in the resource folder
      * @param resourcetypes the types of resources need to use
+     * @param subfolder     the folder name of resource folder, if this parameter is
+     *                      empty or null, it will be setted to "resource"
      */
-    public ResourceLoader(Class<?> trg, ResourceType... resourcetypes) throws IOException {
+    public ResourceLoader(Class<?> trg, String subfolder, ResourceType... resourcetypes) throws IOException {
         targetclass = trg;
+
+        if (subfolder == null || subfolder.isEmpty()) {
+            resourcesubfolder = "resource";
+        } else {
+            resourcesubfolder = subfolder;
+        }
         avaliableresourcetypes = Arrays.asList(resourcetypes);
         for (ResourceType i : resourcetypes) {
             if (trg.getResource(i.getFolderName()) == null)
@@ -64,7 +73,7 @@ public class ResourceLoader {
      */
     public URL loadResource(ResourceType type, String name) {
         if (type.getExtensionName().isEmpty() & avaliableresourcetypes.contains(type)) {
-            return targetclass.getResource(type.getFolderName() + '/' + name);
+            return targetclass.getResource(resourcesubfolder + "/" + type.getFolderName() + '/' + name);
         } else {
             return targetclass.getResource(type.getFolderName() + '/' + name + "." + type.extensionname);
         }

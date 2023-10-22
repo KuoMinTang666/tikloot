@@ -5,7 +5,7 @@
 
     <groupId>net.kuomintang666</groupId>
     <artifactId>tikloot</artifactId>
-    <version>1.4.02</version>
+    <version>1.4.01</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
