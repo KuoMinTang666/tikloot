@@ -75,7 +75,8 @@ public class ResourceLoader {
         if (type.getExtensionName().isEmpty() & avaliableresourcetypes.contains(type)) {
             return targetclass.getResource(resourcesubfolder + "/" + type.getFolderName() + '/' + name);
         } else {
-            return targetclass.getResource(type.getFolderName() + '/' + name + "." + type.extensionname);
+            return targetclass.getResource(
+                    resourcesubfolder + "/" + type.getFolderName() + '/' + name + "." + type.extensionname);
         }
 
     }

@@ -42,28 +42,4 @@ public class FileUtil {
         return builder.toString();
     }
 
-    public static String[] getAllFileName(String dir) throws IOException {
-        return getAllFileName(new File(dir));
-    }
-
-    public static String[] getAllFileName(File dir) throws IOException {
-        if (dir.isDirectory()) {
-            return dir.list();
-        } else {
-            throw new IOException("not a directory");
-        }
-    }
-
-    public static File[] getAllFile(String dir) throws IOException {
-        return getAllFile(new File(dir));
-    }
-
-    public static File[] getAllFile(File dir) throws IOException {
-        String[] filenamelist = getAllFileName(dir);
-        File[] filelist = new File[filenamelist.length];
-        for (int i = 0; i < filenamelist.length; i++) {
-            filelist[i] = new File(filenamelist[i]);
-        }
-        return filelist;
-    }
 }
