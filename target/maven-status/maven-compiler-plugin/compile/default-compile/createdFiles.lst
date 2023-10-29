@@ -13,9 +13,6 @@ io\github\kuomintang666\Tikloot\Observable\ObservableList.class
 io\github\kuomintang666\Tikloot\Encryption\RSAutil.class
 io\github\kuomintang666\Tikloot\Encryption\AESutil.class
 io\github\kuomintang666\Tikloot\Observable\ObservableValue.class
-io\github\kuomintang666\Tikloot\Utils\FileUtil.class
 io\github\kuomintang666\Tikloot\Observable\Observable.class
 io\github\kuomintang666\Tikloot\Observable\Listener$Event$ValueEvent.class
-io\github\kuomintang666\Tikloot\IO\ReaderPP.class
 io\github\kuomintang666\Tikloot\Observable\Listener$Event.class
-io\github\kuomintang666\Tikloot\IO\WriterPP.class

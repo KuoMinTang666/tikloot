@@ -1,4 +1,4 @@
-package io.github.kuomintang666.Tikloot.Utils;
+package io.github.kuomintang666.Tikloot.IO;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileUtil {
@@ -42,4 +44,23 @@ public class FileUtil {
         return builder.toString();
     }
 
+    public static List<String> getFileAbsolutePathList(File files, String dir) throws IOException {
+        if (!files.exists()) {
+            throw new IOException("File not found %s".formatted(files.getName()));
+        }
+        String praseddir = dir.contains("/") ? dir.replaceAll("/", "\\") : dir;
+        List<String> nameList = new ArrayList<>();
+        for (File file : files.listFiles()) {
+            if (file.isDirectory()) {
+                nameList.addAll(getFileAbsolutePathList(file, praseddir));
+            } else {
+                nameList.add(file.getAbsolutePath().replace(praseddir + "\\", ""));
+            }
+        }
+        return nameList;
+    }
+
+    public static List<String> getFileAbsolutePathList(File files) throws IOException {
+        return getFileAbsolutePathList(files, files.getAbsolutePath());
+    }
 }

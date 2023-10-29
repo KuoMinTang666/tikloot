@@ -1,4 +1,4 @@
-package io.github.kuomintang666.Tikloot.IO;
+package io.github.kuomintang666.Tikloot.IO.Stream;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
