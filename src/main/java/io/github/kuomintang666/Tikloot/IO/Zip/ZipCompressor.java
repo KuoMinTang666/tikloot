@@ -1,4 +1,4 @@
-package io.github.kuomintang666.Tikloot.IO.Zip;
+package io.github.kuomintang666.Tikloot.IO.zip;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,10 +13,11 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import io.github.kuomintang666.Tikloot.IO.FileUtil;
-import io.github.kuomintang666.Tikloot.IO.Stream.StreamUtil;
+import io.github.kuomintang666.Tikloot.IO.fileutil;
+import io.github.kuomintang666.Tikloot.IO.stream.streamutil;
 
 public class ZipCompressor {
+
     /**
      * 
      * @param file   file or folder need compress
@@ -28,11 +29,11 @@ public class ZipCompressor {
             ZipOutputStream zipOutputStream = new ZipOutputStream(output);
             if (file.isFile()) {
                 zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
-                StreamUtil.moveContent(new FileInputStream(file), zipOutputStream);
+                streamutil.moveContent(new FileInputStream(file), zipOutputStream);
             } else {
-                for (String filename : FileUtil.getFileAbsolutePathList(file)) {
+                for (String filename : fileutil.getFileRelativePathList(file)) {
                     zipOutputStream.putNextEntry(new ZipEntry(filename));
-                    StreamUtil.moveContent(new FileInputStream(file.getAbsolutePath() + "\\" + filename),
+                    streamutil.moveContent(new FileInputStream(file.getAbsolutePath() + "\\" + filename),
                             zipOutputStream);
                     zipOutputStream.flush();
                 }
@@ -46,18 +47,17 @@ public class ZipCompressor {
 
     /**
      * 
-     * @param file target zip file
-     * @param dir  target dir save zip file's content
+     * @param inputstream target zip inputstream
+     * @param dir         target dir to save zip file's content
      * @throws IOException when the target dir isn't a dir
      */
-    public static void uncompress(ZipFile file, File dir) throws IOException {
+    public static void uncompress(ZipInputStream inputstream, File dir) throws IOException {
         if (!dir.exists())
             dir.mkdir();
         if (dir.isDirectory()) {
-            Enumeration<? extends ZipEntry> entries = file.entries();
             ZipEntry entry;
-            while (entries.hasMoreElements()) {
-                entry = entries.nextElement();
+            while ((entry = inputstream.getNextEntry()) != null) {
+
                 File unzipped = new File(dir.getAbsolutePath() + "\\" + entry.getName().replaceAll("/", "\\\\"));
                 System.out.println(unzipped.getAbsolutePath());
                 if (entry.isDirectory()) {
@@ -65,12 +65,12 @@ public class ZipCompressor {
                     System.out.println("mkdir");
                 } else {
                     unzipped.createNewFile();
-                    StreamUtil.moveContent(file.getInputStream(entry), new FileOutputStream(unzipped));
+                    streamutil.moveContent(inputstream, new FileOutputStream(unzipped));
                     System.out.println("mkf");
                 }
             }
         } else {
-            throw new IOException("%s isn't a directory".formatted(file.getName()));
+            throw new IOException("%s isn't a directory".formatted(dir.getName()));
         }
 
     }

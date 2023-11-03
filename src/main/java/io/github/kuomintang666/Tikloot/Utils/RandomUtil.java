@@ -1,9 +1,9 @@
-package io.github.kuomintang666.Tikloot.Utils;
+package io.github.kuomintang666.Tikloot.utils;
 
 import java.util.Random;
 import java.util.UUID;
 
-public class RandomUtil {
+public class randomutil {
     public static String CreateGUID() {
         return UUID.randomUUID().toString();
     }

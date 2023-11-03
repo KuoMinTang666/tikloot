@@ -1,7 +1,7 @@
-package io.github.kuomintang666.Tikloot.Observable;
+package io.github.kuomintang666.Tikloot.observable;
 
-import io.github.kuomintang666.Tikloot.Observable.Listener.Event;
-import io.github.kuomintang666.Tikloot.Observable.Listener.Event.ValueEvent;
+import io.github.kuomintang666.Tikloot.observable.Listener.Event;
+import io.github.kuomintang666.Tikloot.observable.Listener.Event.ValueEvent;
 
 public class ObservableValue<Type> extends Observable<Type> {
     private Type Value;

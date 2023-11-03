@@ -1,10 +1,10 @@
-package io.github.kuomintang666.Tikloot.IO.Stream;
+package io.github.kuomintang666.Tikloot.IO.stream;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class StreamUtil {
+public class streamutil {
     /**
      * 
      * @param inputStream  target inputstream contains all contents need move

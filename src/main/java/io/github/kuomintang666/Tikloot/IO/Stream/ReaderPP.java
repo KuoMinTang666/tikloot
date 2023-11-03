@@ -1,4 +1,4 @@
-package io.github.kuomintang666.Tikloot.IO.Stream;
+package io.github.kuomintang666.Tikloot.IO.stream;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import io.github.kuomintang666.Tikloot.Utils.ArrayUtil;
-import io.github.kuomintang666.Tikloot.Utils.NumberUtil;
+import io.github.kuomintang666.Tikloot.utils.arrayutil;
+import io.github.kuomintang666.Tikloot.utils.numberutil;
 
 public class ReaderPP {
     InputStream thisInputStream;
@@ -28,13 +28,13 @@ public class ReaderPP {
     public int readInt() throws IOException {
         byte[] cache = new byte[4];
         thisInputStream.read(cache);
-        return NumberUtil.byteArrayToInt(cache);
+        return numberutil.byteArrayToInt(cache);
     }
 
     public long readLong() throws IOException {
         byte[] cache = new byte[8];
         thisInputStream.read(cache);
-        return NumberUtil.byteArrayToLong(cache);
+        return numberutil.byteArrayToLong(cache);
 
     }
 

@@ -1,4 +1,4 @@
-package io.github.kuomintang666.Tikloot.Observable;
+package io.github.kuomintang666.Tikloot.observable;
 
 import java.util.List;
 
@@ -13,6 +13,12 @@ public interface Listener<Type> {
         }
     }
 
+    /**
+     * 
+     * @param event    Operation for observable
+     * @param oldValue value before changed
+     * @param newValue value after changed
+     */
     public void Changed(Event event, Type oldValue, Type newValue);
 
 }

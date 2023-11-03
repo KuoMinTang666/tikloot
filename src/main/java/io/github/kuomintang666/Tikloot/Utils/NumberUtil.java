@@ -1,8 +1,13 @@
-package io.github.kuomintang666.Tikloot.Utils;
+package io.github.kuomintang666.Tikloot.utils;
 
 import java.nio.ByteBuffer;
 
-public class NumberUtil {
+public class numberutil {
+    /**
+     * 
+     * @param i target number
+     * @return bytes of number
+     */
     public static byte[] intToByteArray(int i) {
         byte[] result = new byte[4];
         for (int j = 0; j < result.length; j++) {
@@ -12,10 +17,20 @@ public class NumberUtil {
         return result;
     }
 
+    /**
+     * 
+     * @param bytes target bytes
+     * @return parsed
+     */
     public static int byteArrayToInt(byte[] bytes) {
         return ByteBuffer.wrap(bytes).getInt();
     }
 
+    /**
+     * 
+     * @param i target number
+     * @return bytes of number
+     */
     public static byte[] longToByteArray(long i) {
         byte[] result = new byte[8];
         for (int j = 0; j < result.length; j++) {
@@ -25,6 +40,11 @@ public class NumberUtil {
         return result;
     }
 
+    /**
+     * 
+     * @param bytes target bytes
+     * @return parsed
+     */
     public static long byteArrayToLong(byte[] bytes) {
         return ByteBuffer.wrap(bytes).getLong();
     }

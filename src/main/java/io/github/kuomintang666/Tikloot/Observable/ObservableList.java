@@ -1,12 +1,12 @@
-package io.github.kuomintang666.Tikloot.Observable;
+package io.github.kuomintang666.Tikloot.observable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
-import io.github.kuomintang666.Tikloot.Observable.Listener.Event;
-import io.github.kuomintang666.Tikloot.Utils.ArrayUtil;
+import io.github.kuomintang666.Tikloot.utils.arrayutil;
+import io.github.kuomintang666.Tikloot.observable.Listener.Event;
 
 public class ObservableList<Type> extends ObservableValue<List<Type>> {
     List<Type> list = new ArrayList<>();
@@ -17,7 +17,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      * @param index   element index
      */
     public void add(Type element, int index) {
-        List<Type> old = ArrayUtil.cloneList(list);
+        List<Type> old = arrayutil.cloneList(list);
         list.add(index, element);
         Changed(Event.ArrayEvent.EVENT_ADD, old, list);
     }
@@ -28,7 +28,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      * @param index   element index
      */
     public void set(Type element, int index) {
-        List<Type> old = ArrayUtil.cloneList(list);
+        List<Type> old = arrayutil.cloneList(list);
         list.set(index, element);
         Changed(Event.ArrayEvent.EVENT_SET, old, list);
     }
@@ -40,7 +40,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      */
 
     public void remove(Type element) {
-        List<Type> old = ArrayUtil.cloneList(list);
+        List<Type> old = arrayutil.cloneList(list);
         list.remove(element);
         Changed(Event.ArrayEvent.EVENT_SET, old, list);
     }
@@ -51,7 +51,7 @@ public class ObservableList<Type> extends ObservableValue<List<Type>> {
      */
 
     public void remove(int index) {
-        List<Type> old = ArrayUtil.cloneList(list);
+        List<Type> old = arrayutil.cloneList(list);
         list.remove(index);
         Changed(Event.ArrayEvent.EVENT_SET, old, list);
     }
