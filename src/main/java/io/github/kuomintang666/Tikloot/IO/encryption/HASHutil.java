@@ -1,7 +1,5 @@
 package io.github.kuomintang666.Tikloot.IO.encryption;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
 

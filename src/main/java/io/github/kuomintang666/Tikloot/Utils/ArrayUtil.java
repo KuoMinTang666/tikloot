@@ -1,12 +1,7 @@
 package io.github.kuomintang666.Tikloot.utils;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-
-import io.github.kuomintang666.Tikloot.IO.encryption.BASE64util;
 
 public class arrayutil {
     public static <T> T getlast(T[] input) {

@@ -1,13 +1,9 @@
 package io.github.kuomintang666.Tikloot.IO.stream;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-
-import io.github.kuomintang666.Tikloot.utils.arrayutil;
 import io.github.kuomintang666.Tikloot.utils.numberutil;
 
 public class ReaderPP {

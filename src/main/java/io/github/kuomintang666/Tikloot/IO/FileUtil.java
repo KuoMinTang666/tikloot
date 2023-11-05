@@ -3,7 +3,6 @@ package io.github.kuomintang666.Tikloot.IO;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class fileutil {
     /**
      * Of course,this method is for compressing zip file
      * 
-     * @param files folder of files
+     * @param files directory of files
      * @param dir   directory of files
      * @return list of file relative path
      * @throws IOException
@@ -90,7 +89,7 @@ public class fileutil {
 
     /**
      * 
-     * @param files folder of files
+     * @param files directory of files
      * @return list of file relative path
      * @throws IOException
      */

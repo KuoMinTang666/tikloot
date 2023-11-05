@@ -1,7 +1,5 @@
 package io.github.kuomintang666.Tikloot.observable;
 
-import io.github.kuomintang666.Tikloot.observable.Listener.Event;
-
 public class Observable<Type> {
     Listener<Type> ChangeListener;
 

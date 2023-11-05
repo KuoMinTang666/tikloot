@@ -1,7 +1,5 @@
 package io.github.kuomintang666.Tikloot.observable;
 
-import java.util.List;
-
 public interface Listener<Type> {
     public static class Event {
         public static class ValueEvent extends Event {

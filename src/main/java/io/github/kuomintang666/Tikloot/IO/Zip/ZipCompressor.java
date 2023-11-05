@@ -5,11 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
@@ -20,7 +16,7 @@ public class ZipCompressor {
 
     /**
      * 
-     * @param file   file or folder need compress
+     * @param file   file or directory need compress
      * @param output output zipped content
      * @throws IOException when the zip file not found
      */
