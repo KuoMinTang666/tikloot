@@ -1,7 +1,9 @@
-package io.github.kuomintang666.Tikloot.IO.encryption;
+package io.github.kuomintang666.Tikloot.IO.crypto;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class HASHutil {
     public static final String SHA256 = "sha-256", MD5 = "MD5", SHA1 = "sha-1", SHA384 = "sha-384", SHA512 = "sha-512",
@@ -25,9 +27,9 @@ public class HASHutil {
      * @param inputStream inputstream contains all content
      * @param type        hash type
      * @return hashcode of contents
-     * @throws Exception
+     * @throws NoSuchAlgorithmException,IOException
      */
-    public static String GetHash(InputStream inputStream, String type) throws Exception {
+    public static String GetHash(InputStream inputStream, String type) throws NoSuchAlgorithmException, IOException {
         MessageDigest mg = MessageDigest.getInstance(type);
         byte[] buffer = new byte[4096];
         for (; inputStream.available() >= buffer.length;) {

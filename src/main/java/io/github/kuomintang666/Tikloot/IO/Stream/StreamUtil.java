@@ -11,12 +11,12 @@ public class streamutil {
      * @param outputStream target outputstream need contents
      * @throws IOException
      */
-    public static void moveContent(InputStream inputStream, OutputStream outputStream) throws IOException {
-        byte[] buffer = new byte[4096];
-        while (inputStream.available() >= buffer.length) {
-            inputStream.read(buffer);
-            outputStream.write(buffer);
+    public static void moveContent(InputStream inputStream, OutputStream outputStream, int blocksize)
+            throws IOException {
+        for (; inputStream.available() >= blocksize;) {
+            outputStream.write(inputStream.readNBytes(blocksize));
         }
         outputStream.write(inputStream.readAllBytes());
+        outputStream.flush();
     }
 }
