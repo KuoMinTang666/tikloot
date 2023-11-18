@@ -13,17 +13,15 @@ this is a toolkit for something like encryption,stream and so on
     <groupId>io.github.kuomintang666</groupId>
     <artifactId>tikloot</artifactId>
     <version>your tikloot version</version>
-    <scope>system</scope>
-    <systemPath>your file location<systemPath>
 </dependency>
 ```
-I m sorry for I am not upload it to maven central repository
+I was upload it to maven central repository, maybe...
 
-I will slove it after ^v^
+at least, maven tells me it uploaded it...
 
 this project is developing, so it may have some bugs
 
-if you have any question,`issue` please!
+if you have any question,`issue` please! ^v^
 
 ## how to use?
 
