@@ -10,8 +10,6 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 
-import io.github.kuomintang666.Tikloot.IO.stream.streamutil;
-
 public interface Coder {
     /**
      * 
@@ -43,7 +41,7 @@ public interface Coder {
      * @throws IOException
      */
     public default void moveCodedContent(InputStream inputStream, OutputStream outputStream) throws Exception {
-        streamutil.moveContent(inputStream, getCipherOutputStream(outputStream), 4096);
+        inputStream.transferTo(outputStream);
     }
 
     public Cipher getCipher();

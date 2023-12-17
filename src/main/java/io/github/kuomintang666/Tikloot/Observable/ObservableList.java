@@ -1,84 +1,169 @@
 package io.github.kuomintang666.Tikloot.observable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.ListIterator;
 
-import io.github.kuomintang666.Tikloot.utils.arrayutil;
-import io.github.kuomintang666.Tikloot.observable.Listener.Event;
+import io.github.kuomintang666.Tikloot.observable.Observable.Listener.Event;
+import io.github.kuomintang666.Tikloot.utils.ArrayUtil;
 
-public class ObservableList<Type> extends ObservableValue<List<Type>> {
-    List<Type> list = new ArrayList<>();
+public class ObservableList<T> implements List<T>, Observable<List<T>> {
+    List<T> con = new ArrayList<>();
+    Listener<List<T>> listener = (e, o, n) -> {
+    };
 
-    /**
-     * 
-     * @param element element what is added
-     * @param index   element index
-     */
-    public void add(Type element, int index) {
-        List<Type> old = arrayutil.cloneList(list);
-        list.add(index, element);
-        Changed(Event.ArrayEvent.EVENT_ADD, old, list);
+    @Override
+    public Listener<List<T>> getChangeListener() {
+        return listener;
     }
 
-    /**
-     * 
-     * @param element element what is set
-     * @param index   element index
-     */
-    public void set(Type element, int index) {
-        List<Type> old = arrayutil.cloneList(list);
-        list.set(index, element);
-        Changed(Event.ArrayEvent.EVENT_SET, old, list);
+    @Override
+    public void setChangeListener(Listener<List<T>> listener) {
+        this.listener = listener;
     }
 
-    /**
-     * 
-     * @param element element what is removed
-     * @param index   element index
-     */
-
-    public void remove(Type element) {
-        List<Type> old = arrayutil.cloneList(list);
-        list.remove(element);
-        Changed(Event.ArrayEvent.EVENT_SET, old, list);
+    @Override
+    public int size() {
+        return con.size();
     }
 
-    /**
-     * 
-     * @param index element index
-     */
-
-    public void remove(int index) {
-        List<Type> old = arrayutil.cloneList(list);
-        list.remove(index);
-        Changed(Event.ArrayEvent.EVENT_SET, old, list);
+    @Override
+    public boolean isEmpty() {
+        return con.isEmpty();
     }
 
-    /**
-     * 
-     * @return Iterator of this list
-     */
-    public Iterator<Type> getIterator() {
-        return list.iterator();
+    @Override
+    public boolean contains(Object o) {
+        return con.contains(o);
     }
 
-    /***
-     * 
-     * @param consumer consumer what need all element
-     */
-    public void forEach(Consumer<Type> consumer) {
-        for (Type type : list) {
-            consumer.accept(type);
-        }
+    @Override
+    public Iterator<T> iterator() {
+        return con.iterator();
     }
 
-    /**
-     * 
-     * @param element element what is added
-     */
-    public void add(Type element) {
-        add(element, list.size());
+    @Override
+    public Object[] toArray() {
+        return con.toArray();
     }
+
+    @SuppressWarnings("all")
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return con.toArray(a);
+    }
+
+    @Override
+    public boolean add(T e) {
+        List<T> old = ArrayUtil.cloneList(con);
+        boolean v = con.remove(e);
+        listener.changed(Event.ArrayEvent.EVENT_ADD, old, old);
+        return v;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        List<T> old = ArrayUtil.cloneList(con);
+        boolean v = con.remove(o);
+        listener.changed(Event.ArrayEvent.EVENT_REMOVE, old, old);
+        return v;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return con.containsAll(c);
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        return addAll(con.size(), c);
+    }
+
+    @Override
+    public boolean addAll(int index, Collection<? extends T> c) {
+        List<T> old = ArrayUtil.cloneList(con);
+        boolean v = con.addAll(index, c);
+        listener.changed(Event.ArrayEvent.EVENT_ADD, old, old);
+        return v;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        List<T> old = ArrayUtil.cloneList(con);
+        boolean v = con.removeAll(c);
+        listener.changed(Event.ArrayEvent.EVENT_REMOVE, old, old);
+        return v;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        List<T> old = ArrayUtil.cloneList(con);
+        boolean v = con.retainAll(c);
+        listener.changed(Event.ArrayEvent.EVENT_REMOVE, old, old);
+        return v;
+    }
+
+    @Override
+    public void clear() {
+        List<T> old = ArrayUtil.cloneList(con);
+        con.clear();
+        listener.changed(Event.ArrayEvent.EVENT_REMOVE, old, old);
+    }
+
+    @Override
+    public T get(int index) {
+        return con.get(index);
+    }
+
+    @Override
+    public T set(int index, T element) {
+        List<T> old = ArrayUtil.cloneList(con);
+        T v = con.set(index, element);
+        listener.changed(Event.ArrayEvent.EVENT_SET, old, con);
+        return v;
+    }
+
+    @Override
+    public void add(int index, T element) {
+        List<T> old = ArrayUtil.cloneList(con);
+        con.add(index, element);
+        listener.changed(Event.ArrayEvent.EVENT_ADD, old, con);
+
+    }
+
+    @Override
+    public T remove(int index) {
+        List<T> old = ArrayUtil.cloneList(con);
+        T v = con.remove(index);
+        listener.changed(Event.ArrayEvent.EVENT_REMOVE, old, old);
+        return v;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return con.indexOf(o);
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return con.lastIndexOf(o);
+    }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return con.listIterator();
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        return con.listIterator();
+    }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        return con.subList(fromIndex, toIndex);
+    }
+
 }

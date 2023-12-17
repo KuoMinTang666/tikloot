@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 
-public class inetutil {
+public class InetUtil {
     /**
      * 
      * @param soc the socket need get ip

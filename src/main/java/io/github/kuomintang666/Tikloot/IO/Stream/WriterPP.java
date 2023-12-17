@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import io.github.kuomintang666.Tikloot.utils.numberutil;
+import io.github.kuomintang666.Tikloot.utils.NumberUtil;
 
 public class WriterPP {
     OutputStream thisOutputStream;
@@ -22,11 +22,11 @@ public class WriterPP {
     }
 
     public void writeInt(int arg0) throws IOException {
-        thisOutputStream.write(numberutil.intToByteArray(arg0));
+        thisOutputStream.write(NumberUtil.intToByteArray(arg0));
     }
 
     public void writeLong(long arg0) throws IOException {
-        thisOutputStream.write(numberutil.longToByteArray(arg0));
+        thisOutputStream.write(NumberUtil.longToByteArray(arg0));
     }
 
     public void writeBoolean(boolean arg0) throws IOException {

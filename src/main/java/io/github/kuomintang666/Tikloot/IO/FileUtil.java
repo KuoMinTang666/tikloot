@@ -2,14 +2,37 @@ package io.github.kuomintang666.Tikloot.IO;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.NotDirectoryException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class fileutil {
+public class FileUtil {
+    /**
+     * 
+     * @param dir target dir
+     * @return size of all files under directory
+     * @throws IOException
+     */
+    public static long getDirectorySize(File dir) throws IOException {
+        long size = 0;
+        if (!dir.isDirectory())
+            throw new NotDirectoryException(dir + " isn't a directory");
+        File[] files = dir.listFiles();
+        if (files != null)
+            for (File file : files) {
+                if (file.isFile()) {
+                    size = size + file.length();
+                } else if (file.isDirectory()) {
+                    size = size + getDirectorySize(file);
+                }
+            }
+        return size;
+    }
 
     /**
      * 
@@ -72,7 +95,7 @@ public class fileutil {
      */
     public static List<String> getFileRelativePathList(File files, String dir) throws IOException {
         if (!files.exists()) {
-            throw new IOException("File not found %s".formatted(files.getName()));
+            throw new FileNotFoundException("File not found %s".formatted(files.getName()));
         }
         String praseddir = dir.contains("/") ? dir.replaceAll("/", "\\") : dir;
         List<String> nameList = new ArrayList<>();

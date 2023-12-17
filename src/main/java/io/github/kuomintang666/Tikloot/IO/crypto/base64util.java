@@ -4,7 +4,7 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
-public class base64util {
+public class Base64Util {
     private static Decoder decoder = Base64.getDecoder();
     private static Encoder encoder = Base64.getEncoder();
 

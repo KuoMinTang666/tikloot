@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import io.github.kuomintang666.Tikloot.utils.numberutil;
+import io.github.kuomintang666.Tikloot.utils.NumberUtil;
 
 public class ReaderPP {
     InputStream thisInputStream;
@@ -24,13 +24,13 @@ public class ReaderPP {
     public int readInt() throws IOException {
         byte[] cache = new byte[4];
         thisInputStream.read(cache);
-        return numberutil.byteArrayToInt(cache);
+        return NumberUtil.byteArrayToInt(cache);
     }
 
     public long readLong() throws IOException {
         byte[] cache = new byte[8];
         thisInputStream.read(cache);
-        return numberutil.byteArrayToLong(cache);
+        return NumberUtil.byteArrayToLong(cache);
 
     }
 

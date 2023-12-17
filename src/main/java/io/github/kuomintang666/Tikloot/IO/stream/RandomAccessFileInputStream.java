@@ -15,6 +15,7 @@ public class RandomAccessFileInputStream extends InputStream {
         randomAccessFile.seek(position);
     }
 
+    @Override
     public int read() throws IOException {
         return randomAccessFile.read();
     }
@@ -25,6 +26,11 @@ public class RandomAccessFileInputStream extends InputStream {
 
     public long getRemaining() throws IOException {
         return randomAccessFile.length() - 1 - randomAccessFile.getFilePointer();
+    }
+
+    @Override
+    public int available() throws IOException {
+        return (int) (getRemaining() > Integer.MAX_VALUE ? Integer.MAX_VALUE : getRemaining());
     }
 
     public RandomAccessFile getRandomAccessFile() {

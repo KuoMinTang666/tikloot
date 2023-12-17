@@ -2,7 +2,7 @@ package io.github.kuomintang666.Tikloot.utils;
 
 import java.nio.ByteBuffer;
 
-public class numberutil {
+public class NumberUtil {
     /**
      * 
      * @param i target number

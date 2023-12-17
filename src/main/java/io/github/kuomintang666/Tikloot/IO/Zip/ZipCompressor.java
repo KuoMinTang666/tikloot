@@ -2,81 +2,104 @@ package io.github.kuomintang666.Tikloot.IO.zip;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.NotDirectoryException;
+import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import io.github.kuomintang666.Tikloot.IO.fileutil;
-import io.github.kuomintang666.Tikloot.IO.stream.streamutil;
+import io.github.kuomintang666.Tikloot.IO.FileUtil;
+import io.github.kuomintang666.Tikloot.IO.stream.StreamUtil;
 
-public class ZipCompressor {
+public class ZipCompressor<K> extends Zipper<K> {
+    /**
+     * 
+     * @param cacheSize cache size
+     */
+    public ZipCompressor(int cacheSize) {
+        setCacheSize(cacheSize);
+    }
+
+    public ZipCompressor() {
+        setCacheSize(131072);
+    }
 
     /**
      * 
-     * @param file   file or directory need compress
-     * @param output output zipped content
+     * @param taskkey
+     * @param zipOutputStream target {@link java.util.zip.ZipOutputStream}
+     * @param targetFile      file need to be compressed
      * @throws IOException
      */
-    public static void compress(File file, ZipOutputStream zipOutputStream) throws IOException {
-        if (!file.exists()) {
-            throw new FileNotFoundException("File not found %s".formatted(file));
-        }
-        if (file.isFile()) {
-            zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
-            streamutil.moveContent(new FileInputStream(file), zipOutputStream, 4096);
-        } else {
-            for (String filename : fileutil.getFileRelativePathList(file)) {
-                zipOutputStream.putNextEntry(new ZipEntry(filename));
-                streamutil.moveContent(new FileInputStream(file.getAbsolutePath() + "\\" + filename),
-                        zipOutputStream, 4096);
-                zipOutputStream.flush();
+    public CompressTask compress(K taskkey, ZipOutputStream zipOutputStream, File targetFile) throws IOException {
+        return new CompressTask(taskkey, zipOutputStream, targetFile);
+
+    }
+
+    public class CompressTask extends ZipperTask {
+        private final File targetFile;
+
+        private final ZipOutputStream zipOutputStream;
+        private final long totalsize;
+        private long compressed;
+
+        /**
+         * 
+         * @param taskkey
+         * @param zipOutputStream target {@link java.util.zip.ZipOutputStream}
+         * @param targetFile      file need to be compressed
+         * @throws IOException
+         */
+        protected CompressTask(K taskkey, ZipOutputStream zipOutputStream, File targetFile) throws IOException {
+            super(taskkey);
+            this.targetFile = targetFile;
+            this.zipOutputStream = zipOutputStream;
+            if (targetFile.isFile()) {
+                totalsize = targetFile.length();
+            } else {
+                totalsize = FileUtil.getDirectorySize(targetFile);
             }
         }
-        zipOutputStream.finish();
 
-    }
+        public void run() throws IOException {
+            ensureOpen();
+            FileInputStream fileInputStream;
+            if (targetFile.isFile()) {
+                zipOutputStream.putNextEntry(new ZipEntry(targetFile.getName()));
+                fileInputStream = new FileInputStream(targetFile);
+                StreamUtil.moveContent(fileInputStream, zipOutputStream, cacheSize,
+                        e -> {
+                            compressed = +e;
+                            progress.setvalue((double) compressed / (double) totalsize);
+                        });
+            } else {
+                List<String> files = FileUtil.getFileRelativePathList(targetFile);
+                for (String fileRelativePath : files) {
+                    File file = new File(targetFile + "\\" + fileRelativePath);
+                    System.out.println(fileRelativePath);
+                    if (file.isDirectory()) {
 
-    public static void compress(File file, OutputStream OutputStream) throws IOException {
-        compress(file, new ZipOutputStream(OutputStream));
-    }
-
-    /**
-     * 
-     * @param zipinputstream target zip inputstream
-     * @param dir            target dir to save zip file's content
-     * @throws IOException when the target dir isn't a dir
-     */
-    public static void uncompress(File dir, ZipInputStream zipInputStream) throws IOException {
-        if (!dir.exists())
-            dir.mkdir();
-        if (dir.isDirectory()) {
-            ZipEntry entry;
-            while ((entry = zipInputStream.getNextEntry()) != null) {
-
-                File unzipped = new File(dir.getAbsolutePath() + "\\" + entry.getName().replaceAll("/", "\\\\"));
-                System.out.println(unzipped.getAbsolutePath());
-                if (entry.isDirectory()) {
-                    unzipped.mkdir();
-                    System.out.println("mkdir");
-                } else {
-                    unzipped.createNewFile();
-                    streamutil.moveContent(zipInputStream, new FileOutputStream(unzipped), 4096);
-                    System.out.println("mkf");
+                        zipOutputStream.putNextEntry(new ZipEntry(fileRelativePath + "/"));
+                    } else {
+                        zipOutputStream.putNextEntry(new ZipEntry(fileRelativePath));
+                        fileInputStream = new FileInputStream(file);
+                        StreamUtil.moveContent(fileInputStream, zipOutputStream, cacheSize,
+                                e -> {
+                                    compressed = +e;
+                                    progress.setvalue((double) compressed / (double) totalsize);
+                                });
+                    }
                 }
             }
-        } else {
-            throw new NotDirectoryException("%s isn't a directory".formatted(dir.getName()));
+            zipOutputStream.flush();
+            zipOutputStream.finish();
+            close();
         }
 
-    }
-
-    public static void uncompress(File dir, InputStream inputstream) throws IOException {
-        uncompress(dir, new ZipInputStream(inputstream));
+        @Override
+        public void close() throws IOException {
+            zipOutputStream.close();
+            taskMap.remove(getKey());
+        }
     }
 }

@@ -1,48 +1,68 @@
 package io.github.kuomintang666.Tikloot.observable;
 
-import io.github.kuomintang666.Tikloot.observable.Listener.Event;
+import io.github.kuomintang666.Tikloot.observable.Observable.Listener.Event;
 
-public class ObservableValue<Type> extends Observable<Type> {
-    private Type Value;
+public class ObservableValue<Type> implements Observable<Type> {
+    private Type value;
+    private Listener<Type> changeListener = (e, o, n) -> {
+    };
 
     public ObservableValue() {
     }
 
     public ObservableValue(Type v) {
-        Value = v;
+        value = v;
     }
 
     public ObservableValue(Type v, Listener<Type> l) {
-        Value = v;
-        ChangeListener = l;
+        value = v;
+        changeListener = l;
     }
 
     /**
      * 
-     * @return source value
+     * @return value
      */
-    public Type getValue() {
-        return Value;
+    public Type getvalue() {
+        return value;
     }
 
     /**
      * 
      * @param value target value
      */
-    public void setValue(Type value) {
-        Type old = Value;
-        Value = value;
-        Changed(Listener.Event.ValueEvent.EVENT_SET, old, value);
+    public void setvalue(Type value) {
+        Type old = value;
+        this.value = value;
+        changed(Listener.Event.ValueEvent.EVENT_SET, old, value);
     }
 
     /**
      * 
      * @param event    event type
-     * @param oldValue value before changing
-     * @param newValue value after changing
+     * @param oldvalue value before changing
+     * @param newvalue value after changing
      */
-    protected void Changed(Event event, Type oldValue, Type newValue) {
-        if (ChangeListener != null)
-            ChangeListener.Changed(event, oldValue, newValue);
-    };
+    protected void changed(Event event, Type oldvalue, Type newvalue) {
+        if (changeListener != null)
+            changeListener.changed(event, oldvalue, newvalue);
+    }
+
+    public ObservableValue<Type> clone() {
+        ObservableValue<Type> clone = new ObservableValue<>();
+        clone.changeListener = this.changeListener;
+        clone.value = this.value;
+        return clone;
+    }
+
+    @Override
+    public Listener<Type> getChangeListener() {
+        return changeListener;
+    }
+
+    @Override
+    public void setChangeListener(Listener<Type> listener) {
+        this.changeListener = listener;
+    }
+
 }
