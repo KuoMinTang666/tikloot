@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.zip.ZipException;
 
-import io.github.kuomintang666.Tikloot.observable.ObservableList;
 import io.github.kuomintang666.Tikloot.observable.ObservableMap;
 import io.github.kuomintang666.Tikloot.observable.ObservableValue;
 
