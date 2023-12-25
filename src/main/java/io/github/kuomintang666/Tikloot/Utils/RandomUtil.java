@@ -1,9 +1,5 @@
 package io.github.kuomintang666.Tikloot.utils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 

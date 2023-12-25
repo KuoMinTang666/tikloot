@@ -58,7 +58,7 @@ public class ObservableList<T> implements List<T>, Observable<List<T>> {
     @Override
     public boolean add(T e) {
         List<T> old = ArrayUtil.cloneList(con);
-        boolean v = con.remove(e);
+        boolean v = con.add(e);
         listener.changed(Event.ArrayEvent.EVENT_ADD, old, old);
         return v;
     }

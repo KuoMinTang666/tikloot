@@ -1,12 +1,10 @@
 package io.github.kuomintang666.Tikloot.observable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import io.github.kuomintang666.Tikloot.IO.zip.Zipper;
 import io.github.kuomintang666.Tikloot.observable.Observable.Listener.Event;
 import io.github.kuomintang666.Tikloot.utils.ArrayUtil;
 
